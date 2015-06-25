@@ -55,27 +55,27 @@ var Comic = mongoose.model('Comic', ComicSchema);
 
 
 app.get('/comic/:id', function(req, res) {//show specific unit
-  Quote.find({}, function(err, quotes) {
+  Comic.findOne({_id: req.params.id}, function(err, series) {
   if (err) {return console.error(err);}
-    // keep in mind that everything you want to do AFTER you get the data from the database must happen inside of this callback for it to be synchronous 
-    // Make sure you handle the case for when there is an error as well as the case for when there is no error
     else{
-    res.render('main');
+   res.render('viewseries', {comic: series});
     }
   })
 })
 
 
 app.get('/comic/:id/edit', function(req, res) { //display form for editing item
+  res.render('editseries');
+})
+
+app.post('/comic/:id', function(req, res) { //the action attribute for the form in the above route (GET '/comic/:id/edit')
 
 })
 
-app.post('/comic/:id', function(req, res) { //Should be the action attribute for the form in the above route (GET '/comic/:id/edit')
-
+app.post('/comic/:id/destroy', function(req, res) { //delete the item from the database by ID.
+  Comic.remove({_id: req.params.id}, function (err, user){
+    res.redirect('/');
 })
-
-app.post('/comic/:id/destroy', function(req, res) { //Should delete the item from the database by ID.
-
 })
 
 

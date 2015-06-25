@@ -17,13 +17,13 @@
 	<% for (x in comic){%>
 
 <ul>
-<li>Series Name: <%= comic[x].name %></li>
+<li>Series Name: <a href="/comic/<%= comic[x]._id %>"><%= comic[x].name %></a></li>
 <li>Publisher: <%= comic[x].publisher %></li>
 
 <% date = new Date(comic[x].init_date) 
 var year= date.getFullYear();
 var monthindex= date.getMonth();
-date = monthNames[monthindex] + " " + year;
+date = monthNames[monthindex] + ", " + year;
 %>
 
 <li>Originally Published: <%= date %> </li>
