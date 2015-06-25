@@ -5,7 +5,32 @@
 <title>Comic Book Series</title>
 </head>
 <body>
+<% var monthNames = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+];%>
+
 	<a href="/comic/new">Add New Comic Series</a>
+
+	<% for (x in comic){%>
+
+<ul>
+<li>Series Name: <%= comic[x].name %></li>
+<li>Publisher: <%= comic[x].publisher %></li>
+
+<% date = new Date(comic[x].init_date) 
+var year= date.getFullYear();
+var monthindex= date.getMonth();
+date = monthNames[monthindex] + " " + year;
+%>
+
+<li>Originally Published: <%= date %> </li>
+<li>Description:<p><%= comic[x].description %></p></li>
+</ul>
+<hr>
+<%	} %>
 </body>
 </html>
 <div>

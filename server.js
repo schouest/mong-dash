@@ -13,7 +13,15 @@ app.set('view engine', 'ejs');
 
 
 app.get('/', function(req, res) {//displays all units
- res.render('index');
+ 
+ Comic.find({}, function(err, series) {
+  if (err) {return console.error(err);}
+    /*else{
+       res.render('index', {comic: series});
+    }*/
+   res.render('index', {comic: series});
+  })
+
 })
 
 
