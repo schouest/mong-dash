@@ -11,26 +11,18 @@ app.use(express.static(path.join(__dirname, "./static")));
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 
+
 app.get('/', function(req, res) {//displays all units
  res.render('index');
 })
 
-app.get('/page/:id', function(req, res) {//show specific unit
-  Quote.find({}, function(err, quotes) {
-  if (err) {return console.error(err);}
-    // keep in mind that everything you want to do AFTER you get the data from the database must happen inside of this callback for it to be synchronous 
-    // Make sure you handle the case for when there is an error as well as the case for when there is no error
-    else{
-    res.render('main');
-    }
-  })
+
+app.get('/comic/new', function(req, res) { //display form for making new item
+  res.render('addseries');
 })
 
-app.get('/page/new', function(req, res) { //display form for making new item
 
-})
-
-app.post('/page', function(req, res) {//Should be the action attribute for the form in the above route (GET '/page/new').
+app.post('/comic', function(req, res) {//Should be the action attribute for the form in the above route (GET '/comic/new').
  
   var quote = new Quote({name: req.body.name, quote: req.body.quote, created_at: d});
   quote.save(function(err) {
@@ -44,15 +36,31 @@ app.post('/page', function(req, res) {//Should be the action attribute for the f
 })
 
 
-app.get('/page/:id/edit', function(req, res) { //display form for editing item
+
+
+
+
+app.get('/comic/:id', function(req, res) {//show specific unit
+  Quote.find({}, function(err, quotes) {
+  if (err) {return console.error(err);}
+    // keep in mind that everything you want to do AFTER you get the data from the database must happen inside of this callback for it to be synchronous 
+    // Make sure you handle the case for when there is an error as well as the case for when there is no error
+    else{
+    res.render('main');
+    }
+  })
+})
+
+
+app.get('/comic/:id/edit', function(req, res) { //display form for editing item
 
 })
 
-app.post('/page/:id', function(req, res) { //Should be the action attribute for the form in the above route (GET '/page/:id/edit')
+app.post('/comic/:id', function(req, res) { //Should be the action attribute for the form in the above route (GET '/comic/:id/edit')
 
 })
 
-app.post('/page/:id/destroy', function(req, res) { //Should delete the item from the database by ID.
+app.post('/comic/:id/destroy', function(req, res) { //Should delete the item from the database by ID.
 
 })
 
