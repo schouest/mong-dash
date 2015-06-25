@@ -4,7 +4,7 @@ var app = express();
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded());
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/quote_dojo');//TODO: change to new DB
+mongoose.connect('mongodb://localhost/comicb');
 
 app.use(express.static(path.join(__dirname, "./static")));
 
@@ -23,20 +23,26 @@ app.get('/comic/new', function(req, res) { //display form for making new item
 
 
 app.post('/comic', function(req, res) {//Should be the action attribute for the form in the above route (GET '/comic/new').
- 
-  var quote = new Quote({name: req.body.name, quote: req.body.quote, created_at: d});
-  quote.save(function(err) {
+ console.log("POST DATA", req.body);
+   var comic = new Comic({name: req.body.sname, publisher: req.body.pub, init_date: req.body.inidate, description: req.body.desc});
+  comic.save(function(err) {
     if(err) {
       console.log('something went wrong');
     } else { // else console.log that we did well and then redirect to the root route
       console.log('successfully added quote');
     }
   })
- res.redirect('/quote');
+ res.redirect('/');
 })
 
+var ComicSchema = new mongoose.Schema({
+name: String,
+publisher: String,
+init_date: Date,
+description: String
+})
 
-
+var Comic = mongoose.model('Comic', ComicSchema);
 
 
 
@@ -63,8 +69,6 @@ app.post('/comic/:id', function(req, res) { //Should be the action attribute for
 app.post('/comic/:id/destroy', function(req, res) { //Should delete the item from the database by ID.
 
 })
-
-
 
 
 app.listen(8000, function() {
