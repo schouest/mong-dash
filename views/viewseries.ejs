@@ -2,7 +2,7 @@
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <link rel='stylesheet' type='text/css' href='../style.css'>
-<title>View Comic Series NAME</title>
+<title>View Comic Series <%= comic.name %></title>
 </head>
 <body>
 <% var monthNames = [
@@ -11,26 +11,22 @@
         "August", "September", "October",
         "November", "December"
 ];%>
-<%= comic %>
-
 <h2><%= comic.name %></h2>
 <ul>
-<li>Publisher: <%= comic.publisher %></li>
+	<li>Publisher: <%= comic.publisher %></li>
 
 <% date = new Date(comic.init_date) 
 var year= date.getFullYear();
 var monthindex= date.getMonth();
-date = monthNames[monthindex] + ", " + year;
+date = monthNames[monthindex+1] + ", " + year;
 %>
-
-<li>Originally Published: <%= date %> </li>
-<li>Description:<p><%= comic.description %></p></li>
+	<li>Originally Published: <%= date %> </li>
+	<li>Description:<p><%= comic.description %></p></li>
 </ul>
 <br><a href="/">Back</a>&nbsp<a href="/comic/<%= comic._id %>/edit">Edit</a>
 
 <button type='submit' value='Submit' form='destroy'>Delete Comic</button>
 <form method='post' action='/comic/<%= comic._id %>/destroy' id='destroy'>
 </form>
-
 </body>
 </html>

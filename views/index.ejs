@@ -22,7 +22,7 @@
 
 <% date = new Date(comic[x].init_date) 
 var year= date.getFullYear();
-var monthindex= date.getMonth();
+var monthindex= date.getMonth()+1;
 date = monthNames[monthindex] + ", " + year;
 %>
 

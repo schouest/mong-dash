@@ -1,9 +1,33 @@
 <html>
 <head>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+<link rel='stylesheet' type='text/css' href='../../style.css'>
+<title>Edit Series <%= comic.name %></title>
 </head>
 <body>
-	
-</body>
+<% 
+	var date = comic.init_date;
+	var year = comic.init_date.getFullYear();
+	var month = comic.init_date.getMonth()+2;
+	if(month < 10){
+	var datestr = year + "-0" + month;
+	}
+else{
+	var datestr = year + "-" + month;
+}
 
+	console.log('datestr: ',datestr);
+	console.log('month: ', month);
+%>
+
+<form method='post' action='/comic/<%= comic._id %>'>
+	<label>Series Name: <input type='text' name='name' value='<%= comic.name %>' required></label>
+	<label>Publisher: <input type='text' name='publisher' value='<%= comic.publisher %>' required></label>
+	<label>Initial Date: <input type='month' name='init_date' value='<%= datestr %>' required></label>
+	<label>Description: <textarea name='description'><%= comic.description %></textarea></label>
+	<button value='submit' type='submit'>Update</button>
+</form>
+<a href='/'>Back</a>
+</body>
 </html>
